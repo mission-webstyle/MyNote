@@ -93,7 +93,7 @@ class NoteDetailsActivityListener(
 					eof = true;
 				} else {
 					//Inhalt an Varible packen
-					strMyNoteContent += strReadLine
+					strMyNoteContent += strReadLine + "\n"
 				}
 			}
 
