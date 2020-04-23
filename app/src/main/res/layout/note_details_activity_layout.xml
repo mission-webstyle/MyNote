@@ -7,4 +7,14 @@
     android:orientation="vertical"
     tools:context=".gui.NoteDetailsActivity">
 
+    <EditText
+        android:id="@+id/txtMyNoteContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:autofillHints=""
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="@string/strNoteContentText"
+        android:inputType="textMultiLine"
+        android:textAlignment="viewStart" />
 </androidx.appcompat.widget.LinearLayoutCompat>
