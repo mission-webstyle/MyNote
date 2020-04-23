@@ -19,9 +19,9 @@
     <string name="strUserMsgYourAreAlreadyLoggedIn">You are already logged in.</string>
     <string name="strToDashboardText">To Dashoboard</string>
     <string name="strNoteContentText">Note content</string>
-    <string name="strFileName">noteContent.txt</string>
-    <string name="strCharSetUtfEight">UTf-8</string>
     <string name="strSaveText">Save</string>
     <string name="strDeleteText">Delete</string>
+
+    <string name="strFileName">noteContent.txt</string>
 
 </resources>

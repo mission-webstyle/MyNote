@@ -1,11 +1,15 @@
 package de.rhistel.mynote.logic
 
+import android.content.Context
+import android.text.Editable
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import de.rhistel.mynote.R
 import de.rhistel.mynote.gui.NoteDetailsActivity
+import java.io.BufferedReader
+import java.nio.charset.Charset
 
 class NoteDetailsActivityListener(
 	var noteDetailsActivity: NoteDetailsActivity,
@@ -35,7 +39,58 @@ class NoteDetailsActivityListener(
 
 	//region Save and Delete
 	private fun saveNoteContent() {
-		Toast.makeText(this.noteDetailsActivity, "save", Toast.LENGTH_SHORT).show()
+		val strMyNoteContent = txtMyNoteContent.text.toString()
+
+		if (strMyNoteContent.isNotEmpty()) {
+
+			//1. Dateinamen beschaffen
+			val strFileName = this.noteDetailsActivity.getString(R.string.strFileName);
+
+			this.noteDetailsActivity.openFileOutput(strFileName, Context.MODE_PRIVATE).use {
+				it?.write(strMyNoteContent.toByteArray(Charsets.UTF_8))
+			}
+
+
+		}
+	}
+
+	/**
+	 * Liest die Daten aus der Datei aus.
+	 */
+	public fun readNoteContent(): String {
+
+		//1. Inhalt zum zurueckgeben
+		var strMyNoteContent = ""
+
+		//2. Dateiname aus res/values/strings.xml auslsen
+		val strFileName = this.noteDetailsActivity.getString(R.string.strFileName);
+
+		//3. Reader Definieren lassen
+		val reader =
+			this.noteDetailsActivity.openFileInput(strFileName).bufferedReader(Charsets.UTF_8)
+
+		//4. Makiert das Ende der Datei
+		var eof = false;
+
+		while (!eof) {
+
+			//Gelesene Zeile
+			var strReadLine = reader.readLine()
+
+			//Wenn das Ende Datei erreicht nicht mehr auslesne
+			if (strReadLine == null) {
+				eof = true;
+			} else {
+				//Inhalt an Varible packen
+				strMyNoteContent += strReadLine
+			}
+		}
+
+		reader.close()
+
+
+
+		return strMyNoteContent
 	}
 
 	private fun deleteNoteContent() {

@@ -34,10 +34,17 @@ class NoteDetailsActivity : AppCompatActivity() {
 		//2. Widget generieren
 		this.txtMyNoteContent = this.findViewById(R.id.txtMyNoteContent)
 
+
 		//3. Listener generieren
 		this.noteDetailsActivityListener = NoteDetailsActivityListener(this, txtMyNoteContent)
 
 
+	}
+
+	override fun onResume() {
+		super.onResume()
+		val strMyNoteContent = this.noteDetailsActivityListener.readNoteContent();
+		txtMyNoteContent.setText(strMyNoteContent);
 	}
 	//endregion
 
