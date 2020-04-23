@@ -25,7 +25,13 @@
         </activity>
         <activity
             android:name=".gui.SettingsActivity"
-            android:parentActivityName=".gui.MainActivity">
+            android:parentActivityName=".gui.MainActivity"
+            android:label="@string/strSettingsText">
+
+        </activity>
+        <activity android:name=".gui.NoteDetailsActivity"
+            android:parentActivityName=".gui.MainActivity"
+            android:label="@string/strMyNoteDetailsLabel">
 
         </activity>
     </application>

@@ -35,7 +35,6 @@ class LogInFragment : Fragment() {
 			val strInputtedUserPw = txtUserPw.text.toString();
 
 
-
 			//1. Nicht leere Eingaben
 			if ((strInputtedUserName.isNotEmpty()) && (strUserPw.isNotEmpty())) {
 
