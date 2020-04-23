@@ -16,4 +16,6 @@
     <string name="strUserPwText">Password</string>
     <string name="strMyNoteDetailsLabel">MyNote Details</string>
     <string name="strTakeANoteText">Take a note <![CDATA[>>]]></string>
+    <string name="strUserMsgYourAreAlreadyLoggedIn">You are already logged in.</string>
+    <string name="strToDashboardText">To Dashoboard</string>
 </resources>
