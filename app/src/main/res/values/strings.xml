@@ -23,5 +23,7 @@
     <string name="strDeleteText">Delete</string>
 
     <string name="strFileName">noteContent.txt</string>
+    <string name="strUserMsgSavedSuccessfully">Saved note successfully</string>
+    <string name="strUserMsgNoNoteReadCreateOneFirst">There is no note to read yet, save one ;)</string>
 
 </resources>
