@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".gui.fragments.LogInFragment">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtInputLayoutUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+		<com.google.android.material.textfield.TextInputEditText
+			android:id="@+id/txtUserName"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/strUserNameText"
+			android:textSize="30sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+	<com.google.android.material.textfield.TextInputLayout
+		android:id="@+id/txtInputLayoutUserPw"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<com.google.android.material.textfield.TextInputEditText
+			android:id="@+id/txtUserPw"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/strUserPwText"
+			android:inputType="textPassword"
+			android:textSize="30sp" />
+
+	</com.google.android.material.textfield.TextInputLayout>
+
+	<Button
+		android:id="@+id/btnLogin"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/strLoginText"
+		android:textAllCaps="false"
+		android:textSize="30sp" />
+</androidx.appcompat.widget.LinearLayoutCompat>

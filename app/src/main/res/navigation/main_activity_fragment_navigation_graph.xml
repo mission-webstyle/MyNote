@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:id="@+id/nav_graph"
+		app:startDestination="@id/loginFragmentWidget">
+	
+	<fragment
+			android:id="@+id/loginFragmentWidget"
+			android:name="de.rhistel.mynote.gui.fragments.LogInFragment"
+			android:label="@string/strLoginFragmentLabel"
+			tools:layout="@layout/login_fragment_layout">
+		
+		<action
+				android:id="@+id/actionLoginFragmentToDashboardFragment"
+				app:destination="@id/dashboardFragmentWidget" />
+	</fragment>
+	<fragment
+			android:id="@+id/dashboardFragmentWidget"
+			android:name="de.rhistel.mynote.gui.fragments.DashboardFragment"
+			android:label="@string/strDashboardFragmentLabel"
+			tools:layout="@layout/dashboard_fragment_layout">
+		
+		<action
+				android:id="@+id/actionDashboardFragementToLoginFragment"
+				app:destination="@id/loginFragmentWidget" />
+	</fragment>
+</navigation>
