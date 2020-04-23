@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import de.rhistel.mynote.R
+import de.rhistel.mynote.logic.LoginFragmentListener
 import de.rhistel.mynote.logic.UserController
 
 /**
@@ -20,9 +21,13 @@ class LogInFragment : Fragment() {
 	//region 1. Decl. and Init
 	private lateinit var txtUserName: TextInputEditText
 	private lateinit var txtUserPw: TextInputEditText
+
 	private lateinit var btnLogin: Button
 
+	private lateinit var loginFragmentListener: LoginFragmentListener
+
 	//endregion
+
 	//region 2. Lebenszyklus
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
@@ -38,55 +43,21 @@ class LogInFragment : Fragment() {
 		//2. Widgets generieren
 		this.txtUserName = loginFragmentView.findViewById<TextInputEditText>(R.id.txtUserName)
 		this.txtUserPw = loginFragmentView.findViewById<TextInputEditText>(R.id.txtUserPw)
+
 		this.btnLogin = loginFragmentView.findViewById<Button>(R.id.btnLogin)
 
-		this.btnLogin.setOnClickListener {
+		//3. Listener
+		this.loginFragmentListener = LoginFragmentListener(this, txtUserName, txtUserPw)
 
-			if (!UserController.getInstance().isUserIsLoggedIn) {
-				val strUserName = "Hans";
-				val strUserPw = "123";
-
-				val strInputtedUserName = txtUserName.text.toString();
-				val strInputtedUserPw = txtUserPw.text.toString();
+		//4. Listener zuweisenea
+		this.btnLogin.setOnClickListener(this.loginFragmentListener)
 
 
-				//1. Nicht leere Eingaben
-				if ((strInputtedUserName.isNotEmpty()) && (strUserPw.isNotEmpty())) {
-
-					//2. Checken ob die Eingabedaten korrekt sind
-					if ((strInputtedUserName.equals(strUserName)) && (strInputtedUserPw.equals(
-							strUserPw))) {
-
-						UserController.getInstance().isUserIsLoggedIn = true;
-
-						//DashboardFragement aufrufen
-						this.findNavController()
-							.navigate(R.id.actionLoginFragmentToDashboardFragment)
-					}
-				}
-			}else{
-				this.findNavController()
-					.navigate(R.id.actionLoginFragmentToDashboardFragment)
-			}
-
-
-		}
 	}
 
 	override fun onResume() {
 		super.onResume()
-
-		if (UserController.getInstance().isUserIsLoggedIn) {
-			this.txtUserName.visibility = View.GONE
-			this.txtUserPw.visibility = View.GONE
-
-			this.btnLogin.setText(R.string.strToDashboardText)
-
-			Toast.makeText(this.context,
-				R.string.strUserMsgYourAreAlreadyLoggedIn, Toast.LENGTH_LONG).show()
-//			this.findNavController().
-//			navigate(R.id.actionLoginFragmentToDashboardFragment)
-		}
+		this.loginFragmentListener.configureWidgetsForLoggedInUser(this.btnLogin)
 	}
 	//endregion
 }
