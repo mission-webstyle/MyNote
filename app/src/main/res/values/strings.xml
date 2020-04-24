@@ -50,4 +50,5 @@
     <string name="strUserMsgGpsOn">Gps is on</string>
     <string name="strUserMsgGpsOff">GPS is off</string>
     <string name="strAirPressureText">Air pressure hp:</string>
+    <string name="strTakePicText">Take a pic</string>
 </resources>

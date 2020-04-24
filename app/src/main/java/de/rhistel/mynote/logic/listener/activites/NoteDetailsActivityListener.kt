@@ -5,7 +5,9 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.view.MenuItem
+import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import de.rhistel.mynote.R
 import de.rhistel.mynote.gui.activites.NoteDetailsActivity
@@ -17,8 +19,9 @@ import java.io.File
  */
 class NoteDetailsActivityListener(
 	var noteDetailsActivity: NoteDetailsActivity,
+	var imgvPic : ImageView,
 	var txtMyNoteContent: EditText
-) : MenuItem.OnMenuItemClickListener, DialogInterface.OnClickListener {
+) : MenuItem.OnMenuItemClickListener, View.OnClickListener,DialogInterface.OnClickListener {
 
 	//region 0. Konstantne
 	//endregion
@@ -47,7 +50,24 @@ class NoteDetailsActivityListener(
 	}
 	//endregion
 
-	//region 3. Speichern der Datei
+	//region 3. ImageView Klickauswertung
+	/**
+	 * Called when a view has been clicked.
+	 *
+	 * @param v The view that was clicked.
+	 */
+	override fun onClick(v: View?) {
+		when(v?.id){
+			R.id.imgvPic -> takeAPic()
+		}
+	}
+
+	private fun takeAPic() {
+
+	}
+	//enderegion
+
+	//region 4. Speichern der Datei
 	private fun saveNoteContent(delete: Boolean) {
 		val strMyNoteContent = txtMyNoteContent.text.toString()
 
@@ -67,7 +87,7 @@ class NoteDetailsActivityListener(
 	}
 	//endregion
 
-	//region 4. Datei auslesen
+	//region 5. Datei auslesen
 	/**
 	 * Liest die Daten aus der Datei aus.
 	 * data/data/packageStrukturDerApp/files
@@ -121,7 +141,7 @@ class NoteDetailsActivityListener(
 	}
 	//endregion
 
-	//region 5. Noitz loeschen
+	//region 6. Noitz loeschen
 	/**
 	 * 1. Loeschen Dialog anzeigen
 	 */
@@ -173,7 +193,7 @@ class NoteDetailsActivityListener(
 
 	//endregion
 
-	//region 6. Notizinhalt Teilen
+	//region 7. Notizinhalt Teilen
 
 	/**
 	 * Zeigt den Teilendialog an

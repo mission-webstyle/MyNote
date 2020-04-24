@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import de.rhistel.mynote.R
 import de.rhistel.mynote.logic.listener.activites.NoteDetailsActivityListener
@@ -16,6 +17,7 @@ class NoteDetailsActivity : AppCompatActivity() {
 	//endregion
 
 	//region 1. Decl and Init Attribute
+	private lateinit var imgvPic: ImageView
 	private lateinit var txtMyNoteContent: EditText
 	private lateinit var noteDetailsActivityListener: NoteDetailsActivityListener
 	//endregion
@@ -31,13 +33,13 @@ class NoteDetailsActivity : AppCompatActivity() {
 		this.setContentView(R.layout.note_details_activity_layout)
 
 		//2. Widget generieren
+		this.imgvPic = this.findViewById(R.id.imgvPic)
 		this.txtMyNoteContent = this.findViewById(R.id.txtMyNoteContent)
 
 		//3. Listener generieren
 		this.noteDetailsActivityListener =
 			NoteDetailsActivityListener(
-				this,
-				txtMyNoteContent)
+				this, imgvPic, txtMyNoteContent)
 
 
 	}
