@@ -1,12 +1,11 @@
-package de.rhistel.mynote.logic
+package de.rhistel.mynote.logic.listener.fragments
 
 import android.content.Intent
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import de.rhistel.mynote.R
-import de.rhistel.mynote.gui.NoteDetailsActivity
-import kotlinx.android.synthetic.main.dashboard_fragment_layout.view.*
+import de.rhistel.mynote.gui.activites.NoteDetailsActivity
 
 /**
  * Diese Klasse wertet die Klicks

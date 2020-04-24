@@ -1,4 +1,4 @@
-package de.rhistel.mynote.logic;
+package de.rhistel.mynote.logic.controller;
 
 /**
  * Handelt den LoginZustand

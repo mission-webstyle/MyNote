@@ -1,4 +1,4 @@
-package de.rhistel.mynote.gui
+package de.rhistel.mynote.gui.activites
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

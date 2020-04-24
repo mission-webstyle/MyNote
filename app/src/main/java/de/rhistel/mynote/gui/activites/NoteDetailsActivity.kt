@@ -1,13 +1,12 @@
-package de.rhistel.mynote.gui
+package de.rhistel.mynote.gui.activites
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import de.rhistel.mynote.R
-import de.rhistel.mynote.logic.NoteDetailsActivityListener
+import de.rhistel.mynote.logic.listener.activites.NoteDetailsActivityListener
 
 /**
  * Leitet die CRUD Operationen fuer die Notiz ein
@@ -35,7 +34,10 @@ class NoteDetailsActivity : AppCompatActivity() {
 		this.txtMyNoteContent = this.findViewById(R.id.txtMyNoteContent)
 
 		//3. Listener generieren
-		this.noteDetailsActivityListener = NoteDetailsActivityListener(this, txtMyNoteContent)
+		this.noteDetailsActivityListener =
+			NoteDetailsActivityListener(
+				this,
+				txtMyNoteContent)
 
 
 	}

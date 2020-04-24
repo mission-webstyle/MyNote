@@ -42,4 +42,8 @@
     <string name="strCompanyUrl">https://www.heise.de/</string>
     <string name="strKeyForValueForIntentExtras">keyForValue</string>
     <string name="strShareText">Share note content</string>
+    <string name="strLongitudeText">Longitude:</string>
+    <string name="strLatitudeText">Latitude:</string>
+    <string name="strAltitudeText">Altitude:</string>
+    <string name="strUtcTimeText">UTC:</string>
 </resources>

@@ -1,12 +1,11 @@
-package de.rhistel.mynote.logic
+package de.rhistel.mynote.logic.listener.activites
 
 import android.content.Intent
-import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import de.rhistel.mynote.R
-import de.rhistel.mynote.gui.MainActivity
-import de.rhistel.mynote.gui.SettingsActivity
+import de.rhistel.mynote.gui.activites.MainActivity
+import de.rhistel.mynote.gui.activites.SettingsActivity
 
 class MainActivityListener(var mainActivity: MainActivity) : View.OnClickListener,
 	MenuItem.OnMenuItemClickListener {

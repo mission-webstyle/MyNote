@@ -6,12 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import de.rhistel.mynote.R
-import de.rhistel.mynote.logic.LoginFragmentListener
-import de.rhistel.mynote.logic.UserController
+import de.rhistel.mynote.logic.listener.fragments.LoginFragmentListener
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -47,7 +44,10 @@ class LogInFragment : Fragment() {
 		this.btnLogin = loginFragmentView.findViewById<Button>(R.id.btnLogin)
 
 		//3. Listener
-		this.loginFragmentListener = LoginFragmentListener(this, txtUserName, txtUserPw)
+		this.loginFragmentListener =
+			LoginFragmentListener(this,
+				txtUserName,
+				txtUserPw)
 
 		//4. Listener zuweisenea
 		this.btnLogin.setOnClickListener(this.loginFragmentListener)

@@ -1,4 +1,4 @@
-package de.rhistel.mynote.logic
+package de.rhistel.mynote.logic.listener.activites
 
 import android.Manifest
 import android.content.Intent
@@ -7,7 +7,7 @@ import android.net.Uri
 import android.view.View
 import androidx.core.app.ActivityCompat
 import de.rhistel.mynote.R
-import de.rhistel.mynote.gui.SettingsActivity
+import de.rhistel.mynote.gui.activites.SettingsActivity
 
 /**
  * Dieses Klasse nimmt alle

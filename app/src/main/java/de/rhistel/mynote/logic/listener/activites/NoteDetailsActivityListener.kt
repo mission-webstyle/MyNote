@@ -1,4 +1,4 @@
-package de.rhistel.mynote.logic
+package de.rhistel.mynote.logic.listener.activites
 
 import android.app.AlertDialog
 import android.content.Context
@@ -8,7 +8,7 @@ import android.view.MenuItem
 import android.widget.EditText
 import android.widget.Toast
 import de.rhistel.mynote.R
-import de.rhistel.mynote.gui.NoteDetailsActivity
+import de.rhistel.mynote.gui.activites.NoteDetailsActivity
 import java.io.File
 
 /**

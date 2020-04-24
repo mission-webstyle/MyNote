@@ -11,9 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".gui.LocationActivity"></activity>
+        <activity android:name=".gui.activites.LocationActivity"></activity>
         <activity
-            android:name=".gui.MainActivity"
+            android:name=".gui.activites.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -23,13 +23,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".gui.SettingsActivity"
+            android:name=".gui.activites.SettingsActivity"
             android:label="@string/strSettingsText"
-            android:parentActivityName=".gui.MainActivity"></activity>
+            android:parentActivityName=".gui.activites.MainActivity"></activity>
         <activity
-            android:name=".gui.NoteDetailsActivity"
+            android:name=".gui.activites.NoteDetailsActivity"
             android:label="@string/strMyNoteDetailsLabel"
-            android:parentActivityName=".gui.MainActivity"></activity>
+            android:parentActivityName=".gui.activites.MainActivity"></activity>
     </application>
 
 </manifest>

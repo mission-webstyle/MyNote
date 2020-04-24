@@ -1,4 +1,4 @@
-package de.rhistel.mynote.gui
+package de.rhistel.mynote.gui.activites
 
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +8,7 @@ import android.webkit.WebView
 import android.widget.Button
 import android.widget.TextView
 import de.rhistel.mynote.R
-import de.rhistel.mynote.logic.SettingsActivityListener
+import de.rhistel.mynote.logic.listener.activites.SettingsActivityListener
 
 /**
  * Bietet dem User die
@@ -58,7 +58,9 @@ class SettingsActivity : AppCompatActivity() {
 //		this.webViewHtmlHelpText.loadUrl("https://www.heise.de/")
 
 		//4. Genererien des Listeners
-		this.settingsActivityListener = SettingsActivityListener(this)
+		this.settingsActivityListener =
+			SettingsActivityListener(
+				this)
 
 		//5. Zuweisen des Listeners
 		this.btnCallHotline.setOnClickListener(this.settingsActivityListener)

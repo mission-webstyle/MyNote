@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import de.rhistel.mynote.R
-import de.rhistel.mynote.logic.DashboardFragmentListener
+import de.rhistel.mynote.logic.listener.fragments.DashboardFragmentListener
 
 
 /**
@@ -47,7 +47,9 @@ class DashboardFragment : Fragment() {
 		this.btnTakeAnote = dashboardFragmentView.findViewById<Button>(R.id.btnTakeAnote)
 
 		//3. Listener geneireren
-		this.dashboardFragmentListener = DashboardFragmentListener(this);
+		this.dashboardFragmentListener =
+			DashboardFragmentListener(
+				this);
 
 		this.btnPrevious.setOnClickListener(this.dashboardFragmentListener)
 		this.btnTakeAnote.setOnClickListener(this.dashboardFragmentListener)

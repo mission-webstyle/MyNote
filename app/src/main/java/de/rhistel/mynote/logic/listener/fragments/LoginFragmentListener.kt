@@ -1,4 +1,4 @@
-package de.rhistel.mynote.logic
+package de.rhistel.mynote.logic.listener.fragments
 
 import android.view.View
 import android.widget.Button
@@ -7,7 +7,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import de.rhistel.mynote.R
 import de.rhistel.mynote.gui.fragments.LogInFragment
-import kotlinx.android.synthetic.main.login_fragment_layout.view.*
+import de.rhistel.mynote.logic.controller.UserController
 
 
 /**

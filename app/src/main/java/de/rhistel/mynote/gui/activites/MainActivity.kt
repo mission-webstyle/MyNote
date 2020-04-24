@@ -1,4 +1,4 @@
-package de.rhistel.mynote.gui
+package de.rhistel.mynote.gui.activites
 
 import android.os.Bundle
 import android.util.Log
@@ -7,7 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.rhistel.mynote.R
-import de.rhistel.mynote.logic.MainActivityListener
+import de.rhistel.mynote.logic.listener.activites.MainActivityListener
 
 import kotlinx.android.synthetic.main.main_activity_layout.*
 
@@ -34,7 +34,8 @@ class MainActivity : AppCompatActivity() {
 		this.fabInfo = this.findViewById(R.id.fabInfo)
 
 		//4. Generieren des Listeners
-		this.mainActivityListener = MainActivityListener(this)
+		this.mainActivityListener =
+			MainActivityListener(this)
 
 		//5. Listener setzen
 		fabInfo.setOnClickListener(this.mainActivityListener)
