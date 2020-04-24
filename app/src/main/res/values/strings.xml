@@ -25,5 +25,7 @@
     <string name="strFileName">noteContent.txt</string>
     <string name="strUserMsgSavedSuccessfully">Saved note successfully</string>
     <string name="strUserMsgNoNoteReadCreateOneFirst">There is no note to read yet, save one ;)</string>
+    <string name="strUserMsgDoYouWantToDeleteTheNote">Do you want to delete this note?</string>
+    <string name="strUserMsgDeletedSuccessfully">Deleted note successfully</string>
 
 </resources>

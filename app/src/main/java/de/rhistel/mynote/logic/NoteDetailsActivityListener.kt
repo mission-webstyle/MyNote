@@ -1,21 +1,19 @@
 package de.rhistel.mynote.logic
 
+import android.app.AlertDialog
 import android.content.Context
-import android.text.Editable
+import android.content.DialogInterface
 import android.view.MenuItem
-import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import de.rhistel.mynote.R
 import de.rhistel.mynote.gui.NoteDetailsActivity
-import java.io.BufferedReader
 import java.io.File
-import java.nio.charset.Charset
 
 class NoteDetailsActivityListener(
 	var noteDetailsActivity: NoteDetailsActivity,
 	var txtMyNoteContent: EditText
-) : MenuItem.OnMenuItemClickListener {
+) : MenuItem.OnMenuItemClickListener, DialogInterface.OnClickListener {
 
 
 	//region MenutItem Klickauswertung
@@ -31,7 +29,7 @@ class NoteDetailsActivityListener(
 	 */
 	override fun onMenuItemClick(item: MenuItem?): Boolean {
 		when (item?.itemId) {
-			R.id.mnuItemSaveNoteContent -> saveNoteContent()
+			R.id.mnuItemSaveNoteContent -> saveNoteContent(false)
 			R.id.mnuItemDeleteNoteContent -> deleteNoteContent()
 		}
 		return true
@@ -39,22 +37,22 @@ class NoteDetailsActivityListener(
 	//endregion
 
 	//region Save and Delete
-	private fun saveNoteContent() {
+	private fun saveNoteContent(delete:Boolean) {
 		val strMyNoteContent = txtMyNoteContent.text.toString()
 
-		if (strMyNoteContent.isNotEmpty()) {
+		//1. Dateinamen beschaffen
+		val strFileName = this.noteDetailsActivity.getString(R.string.strFileName);
 
-			//1. Dateinamen beschaffen
-			val strFileName = this.noteDetailsActivity.getString(R.string.strFileName);
-
-			this.noteDetailsActivity.openFileOutput(strFileName, Context.MODE_PRIVATE).use {
-				it?.write(strMyNoteContent.toByteArray(Charsets.UTF_8))
-			}
+		this.noteDetailsActivity.openFileOutput(strFileName, Context.MODE_PRIVATE).use {
+			it?.write(strMyNoteContent.toByteArray(Charsets.UTF_8))
 		}
 
-		Toast.makeText(this.noteDetailsActivity,
-			R.string.strUserMsgSavedSuccessfully,
-			Toast.LENGTH_LONG).show()
+
+		if(!delete) {
+			Toast.makeText(this.noteDetailsActivity,
+				R.string.strUserMsgSavedSuccessfully,
+				Toast.LENGTH_LONG).show()
+		}
 	}
 
 	/**
@@ -108,9 +106,55 @@ class NoteDetailsActivityListener(
 		return strMyNoteContent
 	}
 
+	/**
+	 * 1. Loeschen Dialog anzeigen
+	 */
 	private fun deleteNoteContent() {
-		Toast.makeText(this.noteDetailsActivity, "delete", Toast.LENGTH_SHORT).show()
+
+		//1. Generieren des Dialog Builders mit Hilfe des Contexts
+		val alertDialogBuilder = AlertDialog.Builder(this.noteDetailsActivity)
+
+		//Titel setzen anzeige in der Leiste
+		alertDialogBuilder.setTitle(R.string.strDeleteText)
+
+		//UserMsg festlegen
+		alertDialogBuilder.setMessage(R.string.strUserMsgDoYouWantToDeleteTheNote)
+
+		//Text und Listener fuer den Besaetatigungsbutton festlegen
+		alertDialogBuilder.setPositiveButton(android.R.string.yes, this)
+
+		//Text und Listener fuer den Abbrechen Button festlegen
+		alertDialogBuilder.setNegativeButton(android.R.string.no, this)
+
+		//Anzeigen des Dialogs
+		alertDialogBuilder.show()
+
 	}
+
+	/**
+	 * This method will be invoked when a button in the dialog is clicked.
+	 *
+	 * @param dialog the dialog that received the click
+	 * @param iClickedButton the button that was clicked (ex.
+	 * [DialogInterface.BUTTON_POSITIVE]) or the position
+	 * of the item clicked
+	 */
+	override fun onClick(dialog: DialogInterface?, iClickedButton: Int) {
+		if (iClickedButton == DialogInterface.BUTTON_POSITIVE) {
+
+			//Textfeld resetten
+			txtMyNoteContent.setText("")
+
+			//UserMsg Erfolgreich geloescht
+			Toast.makeText(this.noteDetailsActivity,
+				R.string.strUserMsgDeletedSuccessfully,
+				Toast.LENGTH_SHORT).show()
+
+			//Leerstring in die Datei schreiben lassen
+			this.saveNoteContent(true)
+		}
+	}
+
 	//endregion
 
 
