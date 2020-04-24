@@ -5,16 +5,23 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.os.Environment
 import android.provider.MediaStore
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.content.FileProvider
 import de.rhistel.mynote.R
 import de.rhistel.mynote.gui.activites.NoteDetailsActivity
 import java.io.DataOutputStream
 import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Nimmt die Klicks der NoteDetailsActivity entegen
@@ -35,6 +42,7 @@ class NoteDetailsActivityListener(
 	//endregion
 
 	//region 1. Decl. and Init
+	private lateinit var currentPhotoPath: String
 	//endregion
 
 	//region 2. MenutItem Klickauswertung
@@ -93,23 +101,79 @@ class NoteDetailsActivityListener(
 			//Checken ob es eine Kamerapp gibt
 			if (takeAPicIntent.resolveActivity(packageManger) != null) {
 
-				this.noteDetailsActivity.startActivityForResult(takeAPicIntent,
-					REQUEST_CODE_IMAGE_CAPTURE)
+				val photoFile: File? = try {
+					createImageFile()
+				} catch (ex: IOException) {
+					// Error occurred while creating the File
+					null
+				}
 
+				//Generierte Datei vorbereiten zum anahengen ans intent
+				photoFile?.also {
+					val photoURI: Uri = FileProvider.getUriForFile(
+						this.noteDetailsActivity,
+						"de.rhistel.mynote.fileprovider",
+						it
+					)
+
+					//Vorbereitete Datei anhaengen
+					takeAPicIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+
+					//Kamera starten
+					this.noteDetailsActivity.startActivityForResult(takeAPicIntent,
+						REQUEST_CODE_IMAGE_CAPTURE)
+				}
 			} else {
-				//UserNachricht keine Kamerapp
+
+				//Usernachricht keine Kamera
 				Toast.makeText(this.noteDetailsActivity,
-					R.string.strUserMsgYouGotNoDefaultCameraApp,
+					R.string.strUserMsgYouGotNoDefaultCamera,
 					Toast.LENGTH_LONG).show()
 			}
-		} else {
 
-			//Usernachricht keine Kamera
-			Toast.makeText(this.noteDetailsActivity,
-				R.string.strUserMsgYouGotNoDefaultCamera,
-				Toast.LENGTH_LONG).show()
 		}
 
+	}
+
+	@Throws(IOException::class)
+	private fun createImageFile(): File {
+		// Create an image file name
+		val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+		val storageDir: File? =
+			this.noteDetailsActivity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+		return File.createTempFile(
+			"JPEG_${timeStamp}_", /* prefix */
+			".jpg", /* suffix */
+			storageDir /* directory */
+		).apply {
+			// Save a file: path for use with ACTION_VIEW intents
+			currentPhotoPath = absolutePath
+		}
+	}
+
+	public fun setScaledFullsizePicture() {
+		// Get the dimensions of the View
+		val targetW: Int = imgvPic.width
+		val targetH: Int = imgvPic.height
+
+		val bmOptions = BitmapFactory.Options().apply {
+			// Get the dimensions of the bitmap
+			inJustDecodeBounds = true
+
+			val photoW: Int = outWidth
+			val photoH: Int = outHeight
+
+			// Determine how much to scale down the image
+			val scaleFactor: Int = Math.min(photoW / targetW, photoH / targetH)
+
+			// Decode the image file into a Bitmap sized to fill the View
+			inJustDecodeBounds = false
+			inSampleSize = scaleFactor
+			inPurgeable = true
+		}
+		BitmapFactory.decodeFile(currentPhotoPath, bmOptions)?.also { bitmap ->
+			imgvPic.setImageBitmap(bitmap)
+		}
 	}
 	//enderegion
 
@@ -156,7 +220,8 @@ class NoteDetailsActivityListener(
 		if (noteContentFile.exists()) {
 			//3. Reader Definieren lassen
 			val reader =
-				this.noteDetailsActivity.openFileInput(strFileName).bufferedReader(Charsets.UTF_8)
+				this.noteDetailsActivity.openFileInput(strFileName)
+					.bufferedReader(Charsets.UTF_8)
 
 			//4. Makiert das Ende der Datei
 			var eof = false;
