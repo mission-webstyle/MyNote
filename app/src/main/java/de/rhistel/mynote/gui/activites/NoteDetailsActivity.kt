@@ -1,5 +1,8 @@
 package de.rhistel.mynote.gui.activites
 
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -41,6 +44,9 @@ class NoteDetailsActivity : AppCompatActivity() {
 			NoteDetailsActivityListener(
 				this, imgvPic, txtMyNoteContent)
 
+		//4. Listener adden
+		this.imgvPic.setOnClickListener(this.noteDetailsActivityListener)
+
 
 	}
 
@@ -63,6 +69,32 @@ class NoteDetailsActivity : AppCompatActivity() {
 
 	override fun onOptionsItemSelected(mnuItemClickedItem: MenuItem): Boolean {
 		return noteDetailsActivityListener.onMenuItemClick(mnuItemClickedItem)
+	}
+	//endregion
+
+	//region 4. Fallbackmethoden
+
+	override fun onActivityResult(requestCode: Int, resultCode: Int, takeAPicIntent: Intent?) {
+		super.onActivityResult(requestCode, resultCode, takeAPicIntent)
+
+		if ((requestCode == NoteDetailsActivityListener.REQUEST_CODE_IMAGE_CAPTURE)
+			&& (resultCode == Activity.RESULT_OK)) {
+
+			//Bundle (Datenobjekt von Android) extrahieren
+			val extras: Bundle? = takeAPicIntent?.extras
+
+			//Extra key auslesen
+			val strKeyForSystemExtras = this.getString(R.string.strKeyForSystemExtras)
+
+			//Bitmap extrahieren
+			val bmThumbnail : Bitmap? = extras?.get(strKeyForSystemExtras) as Bitmap
+
+			//Thumbnail anzeigen
+			this.imgvPic.setImageBitmap(bmThumbnail)
+
+		}
+
+
 	}
 	//endregion
 

@@ -66,7 +66,7 @@ class MainActivityListener(var mainActivity: MainActivity) : View.OnClickListene
 
 			//Schluessel fuer den ExtraWert
 			val strKeyForValueForIntentExtras =
-				this.mainActivity.getString(R.string.strKeyForValueForIntentExtras)
+				this.mainActivity.getString(R.string.strKeyForValueMyIntentExtras)
 
 			//Wert der als Extra uergeben wird
 			val iIntentExtraIntValue =

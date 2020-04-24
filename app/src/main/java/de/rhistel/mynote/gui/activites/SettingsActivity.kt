@@ -40,7 +40,7 @@ class SettingsActivity : AppCompatActivity() {
 		this.webViewHtmlHelpText = this.findViewById(R.id.webViewHtmlHelpText)
 
 		//3 Aufrufendes Intent
-		val strKeyForValueForIntentExtras = this.getString(R.string.strKeyForValueForIntentExtras)
+		val strKeyForValueForIntentExtras = this.getString(R.string.strKeyForValueMyIntentExtras)
 
 		if (this.intent.hasExtra(strKeyForValueForIntentExtras)) {
 			val iExtraValueFromIntent = this.intent.getIntExtra(strKeyForValueForIntentExtras, 1337)

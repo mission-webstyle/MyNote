@@ -1,32 +1,35 @@
 <resources>
+    <!--    Allgemeine Stings-->
     <string name="app_name">MyNote</string>
     <string name="strSettingsText">Settings</string>
+    <string name="strMyNoteDetailsLabel">MyNote Details</string>
+
+    <string name="strContentTypeTextHtml">text/html</string>
+    <string name="strContentTypeTextPlain">text/plain</string>
+    <string name="strKeyForValueMyIntentExtras">keyForValue</string>
+    <string name="strKeyForSystemExtras">data</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="strLoginFragmentLabel">Please Login</string>
     <string name="strDashboardFragmentLabel">Dashboard</string>
     <string name="strLoginText">Login</string>
     <string name="strPreviousText"><![CDATA[<<]]> Previous</string>
+    <string name="strTakeANoteText">Take a note <![CDATA[>>]]></string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="strCallHotline">Call hotline</string>
     <!--    Kleins tel mit doppelpunkt und dann die nummer, weil diese mit Uri geparst wir-->
+    <string name="strCallHotline">Call hotline</string>
     <string name="strHotlineNumber">tel:123456789</string>
+
     <string name="strUserNameText">User name</string>
     <string name="strUserPwText">Password</string>
-    <string name="strMyNoteDetailsLabel">MyNote Details</string>
-    <string name="strTakeANoteText">Take a note <![CDATA[>>]]></string>
-    <string name="strUserMsgYourAreAlreadyLoggedIn">You are already logged in.</string>
+
     <string name="strToDashboardText">To Dashoboard</string>
     <string name="strNoteContentText">Note content</string>
+
     <string name="strSaveText">Save</string>
     <string name="strDeleteText">Delete</string>
-
     <string name="strFileName">noteContent.txt</string>
-    <string name="strUserMsgSavedSuccessfully">Saved note successfully</string>
-    <string name="strUserMsgNoNoteReadCreateOneFirst">There is no note to read yet, save one ;)</string>
-    <string name="strUserMsgDoYouWantToDeleteTheNote">Do you want to delete this note?</string>
-    <string name="strUserMsgDeletedSuccessfully">Deleted note successfully</string>
+
 
     <string name="strHtmlContent">
         <![CDATA[
@@ -36,19 +39,26 @@
            </p>
         ]]>
     </string>
-    <string name="strContentTypeTextHtml">text/html</string>
-    <string name="strContentTypeTextPlain">text/plain</string>
 
     <string name="strCompanyUrl">https://www.heise.de/</string>
-    <string name="strKeyForValueForIntentExtras">keyForValue</string>
+
     <string name="strShareText">Share note content</string>
     <string name="strLongitudeText">Longitude:</string>
     <string name="strLatitudeText">Latitude:</string>
     <string name="strAltitudeText">Altitude:</string>
     <string name="strUtcTimeText">UTC:</string>
+
     <string name="strGpsLocation">GPS Location</string>
-    <string name="strUserMsgGpsOn">Gps is on</string>
-    <string name="strUserMsgGpsOff">GPS is off</string>
     <string name="strAirPressureText">Air pressure hp:</string>
     <string name="strTakePicText">Take a pic</string>
+
+    <string name="strUserMsgYourAreAlreadyLoggedIn">You are already logged in.</string>
+    <string name="strUserMsgSavedSuccessfully">Saved note successfully</string>
+    <string name="strUserMsgNoNoteReadCreateOneFirst">There is no note to read yet, save one ;)</string>
+    <string name="strUserMsgDoYouWantToDeleteTheNote">Do you want to delete this note?</string>
+    <string name="strUserMsgDeletedSuccessfully">Deleted note successfully</string>
+    <string name="strUserMsgGpsOn">Gps is on</string>
+    <string name="strUserMsgGpsOff">GPS is off</string>
+    <string name="strUserMsgYouGotNoDefaultCameraApp">You got no default camera app installed</string>
+    <string name="strUserMsgYouGotNoDefaultCamera">Your device has no camera</string>
 </resources>

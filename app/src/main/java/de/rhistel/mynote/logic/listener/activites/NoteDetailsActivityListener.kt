@@ -4,6 +4,8 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.provider.MediaStore
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
@@ -11,6 +13,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import de.rhistel.mynote.R
 import de.rhistel.mynote.gui.activites.NoteDetailsActivity
+import java.io.DataOutputStream
 import java.io.File
 
 /**
@@ -19,11 +22,16 @@ import java.io.File
  */
 class NoteDetailsActivityListener(
 	var noteDetailsActivity: NoteDetailsActivity,
-	var imgvPic : ImageView,
+	var imgvPic: ImageView,
 	var txtMyNoteContent: EditText
-) : MenuItem.OnMenuItemClickListener, View.OnClickListener,DialogInterface.OnClickListener {
+) : MenuItem.OnMenuItemClickListener, View.OnClickListener, DialogInterface.OnClickListener {
 
-	//region 0. Konstantne
+	//region 0. Konstante
+	companion object {
+
+		//Anfragecode fuer die Auswertung der Bildaufname in der NoteDetailsActivity
+		const val REQUEST_CODE_IMAGE_CAPTURE = 1;
+	}
 	//endregion
 
 	//region 1. Decl. and Init
@@ -57,12 +65,50 @@ class NoteDetailsActivityListener(
 	 * @param v The view that was clicked.
 	 */
 	override fun onClick(v: View?) {
-		when(v?.id){
+		when (v?.id) {
 			R.id.imgvPic -> takeAPic()
 		}
 	}
 
+	/**
+	 * Checkt ob einer Kamera und ein
+	 * Standardkamera App vorhanden sind.
+	 * Sollte dies der Fall sein wird diese gestartet.
+	 */
 	private fun takeAPic() {
+
+		//Decl and Init
+		val packageManger = this.noteDetailsActivity.packageManager
+
+		//Checken ob es eine Kamera gibt
+		if (packageManger.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
+			/**
+			 * Implizites Intent generieren
+			 * Um die KameraAPI anzusprechen.
+			 * Es wird ein Foto ueber die Gereateeigene KameraApp
+			 * aufgenommen
+			 */
+			val takeAPicIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+			//Checken ob es eine Kamerapp gibt
+			if (takeAPicIntent.resolveActivity(packageManger) != null) {
+
+				this.noteDetailsActivity.startActivityForResult(takeAPicIntent,
+					REQUEST_CODE_IMAGE_CAPTURE)
+
+			} else {
+				//UserNachricht keine Kamerapp
+				Toast.makeText(this.noteDetailsActivity,
+					R.string.strUserMsgYouGotNoDefaultCameraApp,
+					Toast.LENGTH_LONG).show()
+			}
+		} else {
+
+			//Usernachricht keine Kamera
+			Toast.makeText(this.noteDetailsActivity,
+				R.string.strUserMsgYouGotNoDefaultCamera,
+				Toast.LENGTH_LONG).show()
+		}
 
 	}
 	//enderegion
