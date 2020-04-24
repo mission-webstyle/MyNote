@@ -54,7 +54,8 @@ public class LocationActivityListener :
 	 * den bekommen wir vom Os
 	 */
 	private lateinit var locationManager: LocationManager
-	private lateinit var sensorManger: SensorManager;
+	private lateinit var sensorManger: SensorManager
+	private lateinit var airPressureSensor: Sensor
 	//endregion
 
 	//region 2. Konstruktor
@@ -94,15 +95,22 @@ public class LocationActivityListener :
 	/**
 	 * Barometer ansteuern
 	 */
-	private fun triggerAirPressureSensor(activate: Boolean) {
+	public fun triggerAirPressureSensor(activate: Boolean) {
 		if (activate) {
 
 			//1. Sensor Manger generieren
 			this.sensorManger =
-				this.locationActivity.
-				getSystemService(Context.SENSOR_SERVICE) as SensorManager
-		} else {
+				this.locationActivity.getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
+			//2. Konkreter Luftdrucksensor generieren
+			this.airPressureSensor = sensorManger.getDefaultSensor(Sensor.TYPE_PRESSURE)
+
+			//2. Luftdruckmessung anschalten
+			this.sensorManger.registerListener(this,
+				this.airPressureSensor,
+				SensorManager.SENSOR_DELAY_NORMAL)
+		} else {
+			this.sensorManger.unregisterListener(this)
 		}
 	}
 	//endregion

@@ -46,6 +46,7 @@ class LocationActivity : AppCompatActivity() {
 
 	override fun onStop() {
 		super.onStop()
+		this.locationActivityListener.triggerAirPressureSensor(false)
 		this.locationActivityListener.triggerGps(false)
 	}
 	//endregion
