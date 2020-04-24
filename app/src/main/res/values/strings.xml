@@ -46,4 +46,5 @@
     <string name="strLatitudeText">Latitude:</string>
     <string name="strAltitudeText">Altitude:</string>
     <string name="strUtcTimeText">UTC:</string>
+    <string name="strGpsLocation">GPS Location</string>
 </resources>

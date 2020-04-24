@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.MenuItem
 import android.view.View
 import de.rhistel.mynote.R
+import de.rhistel.mynote.gui.activites.LocationActivity
 import de.rhistel.mynote.gui.activites.MainActivity
 import de.rhistel.mynote.gui.activites.SettingsActivity
 
@@ -23,7 +24,9 @@ class MainActivityListener(var mainActivity: MainActivity) : View.OnClickListene
 	 * @param v :View: Geklickte Button
 	 */
 	override fun onClick(v: View?) {
-		TODO("Not yet implemented")
+		when (v?.id) {
+			R.id.fabInfo -> startActivities(false)
+		}
 	}
 	//endregion
 
@@ -39,8 +42,8 @@ class MainActivityListener(var mainActivity: MainActivity) : View.OnClickListene
 	 * executing.
 	 */
 	override fun onMenuItemClick(mnuItemClickedItem: MenuItem?): Boolean {
-		when(mnuItemClickedItem?.itemId) {
-			R.id.mnuItemSettings -> startSettingsActivity()
+		when (mnuItemClickedItem?.itemId) {
+			R.id.mnuItemSettings -> startActivities(true)
 		}
 
 		return true
@@ -50,28 +53,37 @@ class MainActivityListener(var mainActivity: MainActivity) : View.OnClickListene
 	 * Startet die SettingsActivity und gibt
 	 * einen Wert als Extra im Intent gekapslet mit
 	 */
-	private fun startSettingsActivity() {
+	private fun startActivities(isSettingsActivity: Boolean) {
 
 		//Implizites Intent MainActivity ruft die SettingsActivity auf
-		val intentStartSettingsActivity: Intent = Intent(
-			this.mainActivity,
-			SettingsActivity::class.java
-		)
+		val intentStartActivity: Intent
 
-		//Schluessel fuer den ExtraWert
-		val strKeyForValueForIntentExtras =
-			this.mainActivity.getString(R.string.strKeyForValueForIntentExtras)
+		if (isSettingsActivity) {
+			intentStartActivity = Intent(
+				this.mainActivity,
+				SettingsActivity::class.java
+			)
 
-		//Wert der als Extra uergeben wird
-		val iIntentExtraIntValue =
-			this.mainActivity.resources.getInteger(R.integer.iIntentExtraIntValue)
+			//Schluessel fuer den ExtraWert
+			val strKeyForValueForIntentExtras =
+				this.mainActivity.getString(R.string.strKeyForValueForIntentExtras)
 
-		//Wert und Schluessel and das extra Bundle uebergeben
-		intentStartSettingsActivity.putExtra(strKeyForValueForIntentExtras,
-			iIntentExtraIntValue)
+			//Wert der als Extra uergeben wird
+			val iIntentExtraIntValue =
+				this.mainActivity.resources.getInteger(R.integer.iIntentExtraIntValue)
+
+			//Wert und Schluessel and das extra Bundle uebergeben
+			intentStartActivity.putExtra(strKeyForValueForIntentExtras,
+				iIntentExtraIntValue)
+		}else{
+			intentStartActivity = Intent(
+				this.mainActivity,
+				LocationActivity::class.java
+			)
+		}
 
 		//SettingsActivity mit Extra starten
-		this.mainActivity.startActivity(intentStartSettingsActivity)
+		this.mainActivity.startActivity(intentStartActivity)
 	}
 	//endregion
 
