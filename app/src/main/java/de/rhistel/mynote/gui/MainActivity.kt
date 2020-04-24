@@ -1,13 +1,13 @@
 package de.rhistel.mynote.gui
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.rhistel.mynote.R
+import de.rhistel.mynote.logic.MainActivityListener
 
 import kotlinx.android.synthetic.main.main_activity_layout.*
 
@@ -16,77 +16,75 @@ import kotlinx.android.synthetic.main.main_activity_layout.*
  */
 class MainActivity : AppCompatActivity() {
 
-    //region 2. Lebenszykus
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity_layout)
-        setSupportActionBar(toolbar)
+	//region 1. Decl. and Init
+	private lateinit var fabInfo: FloatingActionButton
+	private lateinit var mainActivityListener: MainActivityListener
+	//endregion
 
-        Log.d(MainActivity::class.java.simpleName, "onCreate")
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
-    }
+	//region 2. Lebenszykus
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		//1. Setzen des Layouts
+		setContentView(R.layout.main_activity_layout)
 
-    override fun onStart() {
-        super.onStart()
-        Log.d(MainActivity::class.java.simpleName, "onStart")
-    }
+		//2. Setzen der Toolbal
+		setSupportActionBar(toolbar)
 
-    override fun onResume() {
-        super.onResume()
-        Log.d(MainActivity::class.java.simpleName, "onResume")
-    }
+		//3. Generieren der Widgets
+		this.fabInfo = this.findViewById(R.id.fabInfo)
 
-    override fun onRestart() {
-        super.onRestart()
-        Log.d(MainActivity::class.java.simpleName, "onRestart")
-    }
+		//4. Generieren des Listeners
+		this.mainActivityListener = MainActivityListener(this)
 
-    override fun onPause() {
-        super.onPause()
-        Log.d(MainActivity::class.java.simpleName, "onPause")
-    }
+		//5. Listener setzen
+		fabInfo.setOnClickListener(this.mainActivityListener)
 
-    override fun onStop() {
-        super.onStop()
-        Log.d(MainActivity::class.java.simpleName, "onStop")
-    }
+		Log.d(MainActivity::class.java.simpleName, "onCreate")
+	}
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(MainActivity::class.java.simpleName, "onDestroy")
-    }
-    //endreigon
+	override fun onStart() {
+		super.onStart()
+		Log.d(MainActivity::class.java.simpleName, "onStart")
+	}
 
-    //region 3. Menu Handling
-    /**
-     * @return true : Menu anzeigen - False: Menu wird nicht angezeigt
-     */
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        this.menuInflater.inflate(R.menu.main_menu_layout, menu)
-        return true
-    }
+	override fun onResume() {
+		super.onResume()
+		Log.d(MainActivity::class.java.simpleName, "onResume")
+	}
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.mnuItemSettings) {
+	override fun onRestart() {
+		super.onRestart()
+		Log.d(MainActivity::class.java.simpleName, "onRestart")
+	}
 
-            val intentStartSettingsActivity: Intent = Intent(
-                this,
-                SettingsActivity::class.java
-            )
+	override fun onPause() {
+		super.onPause()
+		Log.d(MainActivity::class.java.simpleName, "onPause")
+	}
 
-            val strKeyForValueForIntentExtras = this.getString(R.string.strKeyForValueForIntentExtras)
-            val iIntentExtraIntValue = this.resources.getInteger(R.integer.iIntentExtraIntValue)
+	override fun onStop() {
+		super.onStop()
+		Log.d(MainActivity::class.java.simpleName, "onStop")
+	}
 
-            intentStartSettingsActivity.putExtra(strKeyForValueForIntentExtras, iIntentExtraIntValue)
+	override fun onDestroy() {
+		super.onDestroy()
+		Log.d(MainActivity::class.java.simpleName, "onDestroy")
+	}
+	//endregion
 
-            this.startActivity(intentStartSettingsActivity)
-        }
+	//region 3. Menu Handling
+	/**
+	 * @return true : Menu anzeigen - False: Menu wird nicht angezeigt
+	 */
+	override fun onCreateOptionsMenu(mainActivityMenu: Menu): Boolean {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		this.menuInflater.inflate(R.menu.main_menu_layout, mainActivityMenu)
+		return true
+	}
 
-        return false;
-    }
-    //endregion
+	override fun onOptionsItemSelected(mnuItemClickedItem: MenuItem): Boolean {
+		return this.mainActivityListener.onMenuItemClick(mnuItemClickedItem);
+	}
+	//endregion
 }
