@@ -47,4 +47,7 @@
     <string name="strAltitudeText">Altitude:</string>
     <string name="strUtcTimeText">UTC:</string>
     <string name="strGpsLocation">GPS Location</string>
+    <string name="strUserMsgGpsOn">Gps is on</string>
+    <string name="strUserMsgGpsOff">GPS is off</string>
+    <string name="strAirPressureText">Air pressure hp:</string>
 </resources>
