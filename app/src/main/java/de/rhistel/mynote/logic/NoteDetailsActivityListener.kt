@@ -3,6 +3,7 @@ package de.rhistel.mynote.logic
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.Toast
@@ -10,13 +11,22 @@ import de.rhistel.mynote.R
 import de.rhistel.mynote.gui.NoteDetailsActivity
 import java.io.File
 
+/**
+ * Nimmt die Klicks der NoteDetailsActivity entegen
+ * und leietet die weitere Logik ein.
+ */
 class NoteDetailsActivityListener(
 	var noteDetailsActivity: NoteDetailsActivity,
 	var txtMyNoteContent: EditText
 ) : MenuItem.OnMenuItemClickListener, DialogInterface.OnClickListener {
 
+	//region 0. Konstantne
+	//endregion
 
-	//region MenutItem Klickauswertung
+	//region 1. Decl. and Init
+	//endregion
+
+	//region 2. MenutItem Klickauswertung
 	/**
 	 * Called when a menu item has been invoked.  This is the first code
 	 * that is executed; if it returns true, no other callbacks will be
@@ -31,13 +41,14 @@ class NoteDetailsActivityListener(
 		when (item?.itemId) {
 			R.id.mnuItemSaveNoteContent -> saveNoteContent(false)
 			R.id.mnuItemDeleteNoteContent -> deleteNoteContent()
+			R.id.mnuItemShareNoteContent -> shareNoteContent()
 		}
 		return true
 	}
 	//endregion
 
-	//region Save and Delete
-	private fun saveNoteContent(delete:Boolean) {
+	//region 3. Speichern der Datei
+	private fun saveNoteContent(delete: Boolean) {
 		val strMyNoteContent = txtMyNoteContent.text.toString()
 
 		//1. Dateinamen beschaffen
@@ -48,15 +59,18 @@ class NoteDetailsActivityListener(
 		}
 
 
-		if(!delete) {
+		if (!delete) {
 			Toast.makeText(this.noteDetailsActivity,
 				R.string.strUserMsgSavedSuccessfully,
 				Toast.LENGTH_LONG).show()
 		}
 	}
+	//endregion
 
+	//region 4. Datei auslesen
 	/**
 	 * Liest die Daten aus der Datei aus.
+	 * data/data/packageStrukturDerApp/files
 	 */
 	public fun readNoteContent(): String {
 
@@ -105,7 +119,9 @@ class NoteDetailsActivityListener(
 
 		return strMyNoteContent
 	}
+	//endregion
 
+	//region 5. Noitz loeschen
 	/**
 	 * 1. Loeschen Dialog anzeigen
 	 */
@@ -157,5 +173,35 @@ class NoteDetailsActivityListener(
 
 	//endregion
 
+	//region 6. Notizinhalt Teilen
+
+	/**
+	 * Zeigt den Teilendialog an
+	 */
+	private fun shareNoteContent() {
+		//Decl and Init
+		val strMyNoteContent = txtMyNoteContent.text.toString()
+		val strContentTypeTextPlain =
+			this.noteDetailsActivity.getString(R.string.strContentTypeTextPlain)
+
+		/*
+		 * Kapselt die Inofrmationen was wie geteilet wird
+		 * - An andere Apps soll etwas gesendent
+		 * - Das Was ist dabei ein Text aus der GUI
+		 * - Inhaltstyp wird festgelegt
+		 */
+		val intentWithContentAndSendInfos: Intent = Intent().apply {
+			action = Intent.ACTION_SEND
+			putExtra(Intent.EXTRA_TEXT, strMyNoteContent)
+			type = strContentTypeTextPlain
+		}
+
+		//Vom Os auswaehalen lassen was getan werden soll
+		val intentShareDialog = Intent.createChooser(intentWithContentAndSendInfos, null)
+
+		//Teilen Dialog start
+		this.noteDetailsActivity.startActivity(intentShareDialog)
+	}
+	//endregion
 
 }

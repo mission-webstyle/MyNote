@@ -34,7 +34,6 @@ class NoteDetailsActivity : AppCompatActivity() {
 		//2. Widget generieren
 		this.txtMyNoteContent = this.findViewById(R.id.txtMyNoteContent)
 
-
 		//3. Listener generieren
 		this.noteDetailsActivityListener = NoteDetailsActivityListener(this, txtMyNoteContent)
 

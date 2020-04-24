@@ -1,17 +1,12 @@
 package de.rhistel.mynote.gui
 
-import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.webkit.WebView
 import android.widget.Button
 import android.widget.TextView
-import androidx.core.app.ActivityCompat
 import de.rhistel.mynote.R
 import de.rhistel.mynote.logic.SettingsActivityListener
 
@@ -55,7 +50,7 @@ class SettingsActivity : AppCompatActivity() {
 
 		//HtmlContent und Typ auslesen
 		val strHtmlContent = this.getString(R.string.strHtmlContent)
-		val strHtmlContentTyp = this.getString(R.string.strHtmlContentType);
+		val strHtmlContentTyp = this.getString(R.string.strContentTypeTextHtml);
 
 		this.webViewHtmlHelpText.loadData(strHtmlContent, strHtmlContentTyp, null)
 

@@ -36,7 +36,10 @@
            </p>
         ]]>
     </string>
-    <string name="strHtmlContentType">text/html</string>
+    <string name="strContentTypeTextHtml">text/html</string>
+    <string name="strContentTypeTextPlain">text/plain</string>
+
     <string name="strCompanyUrl">https://www.heise.de/</string>
     <string name="strKeyForValueForIntentExtras">keyForValue</string>
+    <string name="strShareText">Share note content</string>
 </resources>

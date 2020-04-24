@@ -13,4 +13,9 @@
         android:icon="@android:drawable/ic_menu_delete"
         android:title="@string/strDeleteText"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/mnuItemShareNoteContent"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="@string/strShareText"
+        app:showAsAction="ifRoom" />
 </menu>
