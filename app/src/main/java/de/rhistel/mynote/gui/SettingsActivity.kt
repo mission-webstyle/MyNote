@@ -67,6 +67,7 @@ class SettingsActivity : AppCompatActivity() {
 
 		//5. Zuweisen des Listeners
 		this.btnCallHotline.setOnClickListener(this.settingsActivityListener)
+		this.txtvUrl.setOnClickListener(this.settingsActivityListener)
 
 		Log.d(SettingsActivity::class.java.simpleName, "onCreate")
 

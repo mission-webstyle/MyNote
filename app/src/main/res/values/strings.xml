@@ -37,6 +37,6 @@
         ]]>
     </string>
     <string name="strHtmlContentType">text/html</string>
-    <string name="strUrlText">https://www.heise.de/</string>
+    <string name="strCompanyUrl">https://www.heise.de/</string>
     <string name="strKeyForValueForIntentExtras">keyForValue</string>
 </resources>

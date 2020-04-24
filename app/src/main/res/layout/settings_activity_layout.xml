@@ -21,7 +21,7 @@
         android:id="@+id/txtvUrl"
         android:layout_width="411dp"
         android:layout_height="wrap_content"
-        android:text="@string/strUrlText"
+        android:text="@string/strCompanyUrl"
         android:textAlignment="center"
         android:textColor="#3949AB"
         android:textSize="24sp"

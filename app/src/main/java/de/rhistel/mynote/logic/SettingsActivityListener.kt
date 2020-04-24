@@ -23,13 +23,14 @@ class SettingsActivityListener(var settingsActivity: SettingsActivity) : View.On
 	 * @param v The view that was clicked.
 	 */
 	override fun onClick(v: View?) {
-		if (v?.id == R.id.btnCallHotline) {
-			callHotline()
+		when (v?.id) {
+			R.id.btnCallHotline -> callHotline()
+			R.id.txtvUrl-> showUrlInDefaultBrowser()
 		}
 	}
 	//endregion
 
-	//region 3. Verberitung der weiteren Logik eingeleitet durch die Klicks
+	//region 3. Anruf der Hotline
 
 	public fun callHotline() {
 
@@ -52,6 +53,19 @@ class SettingsActivityListener(var settingsActivity: SettingsActivity) : View.On
 			//3. Starten des Anrufs
 			this.settingsActivity.startActivity(intentStartCallDialog)
 		}
+	}
+	//endregion
+
+	//region 4. URL Aufruf im Standardbrowser
+	private fun showUrlInDefaultBrowser(){
+		//1. Url aus der res/values/strings.xml auslesen
+		val strCompanyUrl = this.settingsActivity.getString(R.string.strCompanyUrl)
+
+		//2. Implizites Intent generieren
+		val intentShowUrlInDefaultBrowser = Intent(Intent.ACTION_VIEW, Uri.parse(strCompanyUrl))
+
+		//3. Startent des Intent
+		this.settingsActivity.startActivity(intentShowUrlInDefaultBrowser)
 	}
 	//endregion
 
