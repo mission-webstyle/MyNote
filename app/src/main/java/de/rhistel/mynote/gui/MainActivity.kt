@@ -78,7 +78,10 @@ class MainActivity : AppCompatActivity() {
                 SettingsActivity::class.java
             )
 
-            intentStartSettingsActivity.putExtra("keyValue", 1)
+            val strKeyForValueForIntentExtras = this.getString(R.string.strKeyForValueForIntentExtras)
+            val iIntentExtraIntValue = this.resources.getInteger(R.integer.iIntentExtraIntValue)
+
+            intentStartSettingsActivity.putExtra(strKeyForValueForIntentExtras, iIntentExtraIntValue)
 
             this.startActivity(intentStartSettingsActivity)
         }

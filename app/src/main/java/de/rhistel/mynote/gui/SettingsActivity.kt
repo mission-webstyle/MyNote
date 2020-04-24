@@ -8,10 +8,28 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.webkit.WebView
+import android.widget.Button
+import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import de.rhistel.mynote.R
+import de.rhistel.mynote.logic.SettingsActivityListener
 
+/**
+ * Bietet dem User die
+ * Moeglichkeite eine Supporthotline
+ * anzurufen oder die Internetseite
+ * des Herstellers zu besuchen
+ */
 class SettingsActivity : AppCompatActivity() {
+
+	//region 1. Decl. and Init
+	private lateinit var btnCallHotline: Button
+	private lateinit var txtvUrl: TextView
+	private lateinit var webViewHtmlHelpText: WebView
+
+	private lateinit var settingsActivityListener: SettingsActivityListener;
+	//endregion
 
 	//region 2. Lebenszyklus
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,15 +38,35 @@ class SettingsActivity : AppCompatActivity() {
 		//1. Layout setzen
 		this.setContentView(R.layout.settings_activity_layout)
 
+		//2. Widgets generieren
+		this.btnCallHotline = this.findViewById(R.id.btnCallHotline)
+		this.txtvUrl = this.findViewById(R.id.txtvUrl)
 
-		//Aufrufendes Intent
-		if (this.intent.hasExtra("keyValue")) {
-			val iExtraValueFromIntent = this.intent.getIntExtra("keyValue", 1337)
+		this.webViewHtmlHelpText = this.findViewById(R.id.webViewHtmlHelpText)
+
+		//3 Aufrufendes Intent
+		val strKeyForValueForIntentExtras = this.getString(R.string.strKeyForValueForIntentExtras)
+
+		if (this.intent.hasExtra(strKeyForValueForIntentExtras)) {
+			val iExtraValueFromIntent = this.intent.getIntExtra(strKeyForValueForIntentExtras, 1337)
 
 			Log.d(SettingsActivity::class.java.simpleName, "Extra gefunden: $iExtraValueFromIntent")
 		}
 
+		//HtmlContent und Typ auslesen
+		val strHtmlContent = this.getString(R.string.strHtmlContent)
+		val strHtmlContentTyp = this.getString(R.string.strHtmlContentType);
 
+		this.webViewHtmlHelpText.loadData(strHtmlContent, strHtmlContentTyp, null)
+
+		//Die WebView ist nicht geeignet um das Web anzuzeigen.
+//		this.webViewHtmlHelpText.loadUrl("https://www.heise.de/")
+
+		//4. Genererien des Listeners
+		this.settingsActivityListener = SettingsActivityListener(this)
+
+		//5. Zuweisen des Listeners
+		this.btnCallHotline.setOnClickListener(this.settingsActivityListener)
 
 		Log.d(SettingsActivity::class.java.simpleName, "onCreate")
 
@@ -65,46 +103,20 @@ class SettingsActivity : AppCompatActivity() {
 	}
 	//endregion
 
-	//region ClickHandling
-	fun clickHandling(v: View) {
-		if (v.id == R.id.btnCallHotline) {
 
-			callHotline()
-
-		}
-	}
-
-	private fun callHotline() {
-
-		//1. Hotlinstring beschaffen res/values/strings.xml
-		val strHotlineNumber = this.getString(R.string.strHotlineNumber)
-
-		//2. IMPLIZITES Intent generieren
-		val intentStartCallDialog = Intent(Intent.ACTION_CALL, Uri.parse(strHotlineNumber))
-
-
-		if (ActivityCompat.checkSelfPermission(this,
-				Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED
-		) {
-			//Berechtigung festlege
-			val strWantedPermissions = arrayOf(Manifest.permission.CALL_PHONE)
-
-			//Berechtigungsdialog anzeig
-			this.requestPermissions(strWantedPermissions, 1)
-		} else {
-			//3. Starten des Anrufs
-			this.startActivity(intentStartCallDialog)
-		}
-	}
-	//endregion
-
+	/**
+	 * Berechtigungsdialog auswerten
+	 * @param requestCode : Int : Selbstdefinierter Code der die konkrete
+	 * @param permissions : Array<out String>: Gecheckten Berechtigungen
+	 * @param grantResults : IntArray : Bestaetitungsergebnis der einzelnen Checks
+	 */
 	override fun onRequestPermissionsResult(
 		requestCode: Int,
 		permissions: Array<out String>,
 		grantResults: IntArray
 	) {
 		if ((requestCode == 1) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-			this.callHotline()
+			this.settingsActivityListener.callHotline();
 		}
 	}
 }

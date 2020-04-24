@@ -8,12 +8,36 @@
 
     <Button
         android:id="@+id/btnCallHotline"
-        android:layout_width="wrap_content"
+        android:layout_width="411dp"
         android:layout_height="wrap_content"
-        android:onClick="clickHandling"
         android:text="@string/strCallHotline"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/txtvUrl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtvUrl"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:text="@string/strUrlText"
+        android:textAlignment="center"
+        android:textColor="#3949AB"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCallHotline" />
+
+    <WebView
+        android:id="@+id/webViewHtmlHelpText"
+        android:layout_width="410dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtvUrl" />
 </androidx.constraintlayout.widget.ConstraintLayout>

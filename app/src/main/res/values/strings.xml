@@ -28,4 +28,15 @@
     <string name="strUserMsgDoYouWantToDeleteTheNote">Do you want to delete this note?</string>
     <string name="strUserMsgDeletedSuccessfully">Deleted note successfully</string>
 
+    <string name="strHtmlContent">
+        <![CDATA[
+           <b>Fetter Hilfetext</b>
+           <p>
+                Beschreibung
+           </p>
+        ]]>
+    </string>
+    <string name="strHtmlContentType">text/html</string>
+    <string name="strUrlText">https://www.heise.de/</string>
+    <string name="strKeyForValueForIntentExtras">keyForValue</string>
 </resources>
